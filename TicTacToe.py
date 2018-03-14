@@ -14,7 +14,8 @@ def run_game():
         print('Player One, what is your move?')
         move1 = int(input('Please select a cell to play'))
         check_played(move1,'one')
-        game_on = check_winner()
+        if check_winner()==False:
+            break
         print_board()
         print('Player Two, what is your move?')
         move2 = int(input('Please select a cell to play'))
@@ -22,6 +23,7 @@ def run_game():
         game_on = check_winner()
 
 def check_winner():
+    #check for winner by row
     for row in range(1,10,3):
         if board[row]==board[row+1] and board[row]==board[row+2] and board[row]!='':
             if board[row]=='X':
@@ -29,6 +31,7 @@ def check_winner():
             elif board[row]=='O':
                 print('Player two wins')
             return False
+    #check for winner by column
     for column in range(1,4):
         if board[column]==board[column+3] and board[column]==board[column+6] and board[column]!='':
             if board[column]=='X':
@@ -36,6 +39,19 @@ def check_winner():
             elif board[column]=='O':
                 print('Player two wins')
             return False
+    #check diagonal winner
+    if board[1]==board[5] and board[1]==board[9] and board[1]!='':
+        if board[1]=='X':
+                print('Player one wins')
+        elif board[1]=='O':
+                print('Player two wins')
+        return False
+    if board[3]==board[5] and board[3]==board[7] and board[3]!='':
+        if board[3]=='X':
+                print('Player one wins')
+        elif board[3]=='O':
+                print('Player two wins')
+        return False
     return True
 
 def check_played(move,player):
@@ -46,4 +62,5 @@ def check_played(move,player):
         board[move]='X'
     elif player=='two':
         board[move]='O'
+
 run_game()
